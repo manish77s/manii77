@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> first project</title>
+</head>
+<body>
+    <h1>backtracking</h1>
+    <h2>backtracking is a form of reacursion.</h2>
+    <p>The usual scenario is that you are faced with a number of optins,and you must choose one of these. after you make your <br>
+     choice you will get a new set of options; just what set of options you get depends on what choices, you made. This  procedure is <br>
+     repeated over and over until you reach a final state.if you made a good sequence of choices, your final state is a goal state;if <br>
+     you didn't,it isn'at. </p> 
+
+    
+    <p>coceptually, you start at the root of a tree, the tree probably has some good leaves and some bad leaves, though it may be that <br>
+    the leaves are all good or all bad. you want to get to good leaf. At each node, beginnning eith the root, you choose one of its <br>
+     children to move to, and you keep this up until you get to a leaf.</p>
+     
+    <p>suppose you get to a bad leaf. you can backtrak to continue the searh for a good leaf by reviking your most recent choice <br>
+    and trying out the next optin in that set of optins.if you run out of option, revoke the choice that got you here, and try <br>
+     another chocice at that node. if you and up at the root with no option left, there are no good leaves to be found.</p>
+
+     <p>This needs an example.</p>
+      
+     <img src="./image.root.png" alt="not showing" width="300" height="200">
+      
+     <ol >
+        <li>starting at root, your options are A and B. you choosoose A</li>
+
+        <br>
+
+        <li>At A, your options are C and D. you choose C.</li>
+
+        <br>
+
+        <li>C is bad. go back to A.</li>
+
+        <br>
+
+        <li>At A, you have alraedy tried C, and it failed.try D.</li>
+
+        <br>
+
+        <li>D is bad. Go back to A</li>
+
+        <br>
+
+        <li>At A, you have no options left to try.go back to Root.</li>
+
+        <br>
+
+        <li>At Root, you have already tried a. try B.</li>
+        
+        <br>
+
+        <li>At B, your option are E and F. try E</li>
+
+        <br>
+
+        <li>E is good congratulations!</li>
+     </ol>
+     <fieldset>
+        in this exalmle we drew a picture of a tree. is an abstract model of the possible sequence of choice we cloud
+
+        <br>
+
+       make. There is also data structure called a tree, but usually we don't have a data structure to tell uss what choices
+        
+       <br>
+       
+       we have.(if we do have an actual tree data structure, backtracking on it is called depth-first tree search
+      </fieldset>
+     <h3>The backtracking algorithm.</h3>
+     <br>
+       &nbsp;
+       
+     <pre>
+      <font color="blue">
+     <p> boolean solve(Node n) {
+      <br>
+         if n is a leaf node {
+           <br>
+
+       if the leaf is a goal node,return true 
+       <br>
+        else return false
+        <br>
+           } else { 
+            <br>
+         for each child c of n {
+            <br>
+            if solve(c) succeeds, return true 
+            <br>
+         }
+         return false 
+           
+            }
+         } </font>
+      </pre> 
+      
+      &nbsp;
+     <fieldset>
+      notice that the algorithm is expressed as a boolean function. this is essential to understanding the algorithm. if 
+      <br>
+       solve(n) is true, that means node n is part of a solution--that is, node n is one of the nodes on a path from the root to <br>
+       some goal node. we say that n is solvable. if solve(n) is false, then there is no path that includes n to any goal node.
+     </fieldset>
+     
+       <h3>how does this work?</h3>  
+       <ul>
+      
+         <li>if any childof n is solvable, then n is solvable.</li>
+         <li>if no child of n is solvable, then n is not solvable.</li>
+         
+       </ul> 
+       <p>Hence, to decide wherher any non-leaf node n is solvable (part of a path to a goal node), all you have to do is test whether any <br> 
+      child of n is solvable. this is done recursively, on each of n. in the above code of n. in the above code, this is done by the lines </p>
+        
+      
+      <pre>
+        <font color="blue"> 
+         for each child c of n { 
+            <br>
+           if solve(c) succeeds, return true 
+           <br>
+         } 
+          return false 
+      </pre>
+       </font>
+      <p>eventually the recursion will "bottom" out at a leaf node is a goal node, it is solvable; if the leaf node is not a goal <br>
+         node, it is not solvable. this is our base case. in the above code, this is done by the lines </p>
+         
+         <br>
+         <br>
+   
+         <pre>
+            <font color="blue">
+            
+            if n is a leaf node {
+               <br>
+               
+            if the leaf is a goal node, return true 
+            <br>
+         
+             else return false 
+             <br>
+             
+             }
+
+            </font>
+            </pre>
+         
+         <p>the backtraking algorithm is simple but important. you should understandand it thorougly. another way of starting it is as follows;:</p>
+         <ul>
+             <li> <h3>To search a tree</h3></li>
+         </ul>
+         <ol type="1">
+            <li>if the tree consists of a single leaf, test whether it is a goal node.</li>
+            <li>otherwise. search the subtrees until you find one containing a goal node, or until you have searched them all unsuccessfully.</li>
+         
+            <h3>Non- recursive backtraking, uding a stack</h3>
+            <p>backtraking is a rather typical recursive  algorithm, and any recursive algorithm can be rewritten as a stack algorithm in fact.
+               <br>
+               that is how your recursive algorithm are transtated info machine or assembly language.</p>
+              
+             <pre>
+             <font color="blue">
+            boolean solve(node n) {
+               <br>
+             put node n on the stack;
+             <br>
+             while the stack is not empty {
+               <br>
+               if the node at the top of the stack is a leaf {
+                  <br>
+                  if it is a goal node,return true
+                  <br>
+                  else pop it off the stack 
+                  <br>  
+            }
+            <br>
+            else {
+               <br>if the node at the top of the stack has untried children 
+               <br>
+               push the next untried child onto the stack 
+               <br>
+               else pop the node off the  stack
+               <br>
+                   }
+                   return false 
+                  }
+             </font>
+             </pre> 
+              <h3>keeping backtraacking simple</h3>
+               
+              <p>all off these version of the backtracking algorithm are pretty simple, but when applied to a real problem, they can get pretty 
+               
+               <br>
+                 cluttered up with details. evendeteming whether the node is a leaf can be complex: </p>
+                 <br>
+                 <p>for example, if the path repesent a series of moves in a chess endgame problem, the leaves are the checkmate and statmete <br>
+                  solution 
+                 </p>
+               
+                 <p>to keep the prpgram clean, therefor, tests like this should be buried in a chess game, for example, you could test 
+                  <br>
+                  whether a node is a leaf by writing a <b>gameover method</b>(or you could even call it <strong>isleaf</strong>).this method would encapsulate all the 
+                  <br>
+                  ugly details of figuring out whether any possible moves remain.
+                 </p>
+                  
+                 <p>
+                  notice that the backtraking algorithm requir us to keep track, for each node on the current path, which of its children have <br>
+                  been treid already (so we don't have to try them again). in the above code we made this look simple, by just saying <b>for each child <br>c of n. </b>
+                   in reality, it may be diffult to figure out what the possible children are, and there may be no obvious way to step throigh <br> 
+                  them in class, for example, a node can represent one arrangemment of the pices on a chessboard, and each child of that node can <br>
+                  represent the arrangment after some piece has made legal move. how do you find these children, and how do you keep track <br>
+                  of which ones you've already examined?</p>
+                  <br>
+                  <br>
+
+                  <p>the most straightforward way to keep track of which chidren of the node have been tried is as follow. upon initial   entry to the <br>
+                     node (that is, when you first get there from above), make a list of all its chidren. as you try each child, take it off the list. when <br>
+                     the list is, empty, there are no remaining untried chidren, and return "failure."
+                     this is a simple approach, but it may require <br>
+                     quite a lot of additonal work.</p>
+                     <p>thre is an easiar way to keep track of which children, ahve been tried, if you can define an ordering on the children. if there is an <br>
+                     odering, and you know which child you just treid, you can determine ehichch child to try next.</p>
+                     <br>
+  
+                  <p>ordering, and you know which childh you can determine which child to try next.</p>
+                  <br>
+                  <br>
+                   <p>for example, you might be able to number the <strong>children 1 through n,</strong> and try them in numerical  order. then, if you have just tried <br> 
+                    <b>child k,</b> you know that you have already treid children 1 through <b>k-1</b> and you have not yet treid children <b>k+1</b> through <b>n.</b> or, if you <br>
+                    are trying to color a map with just four color, you can always try <b>red first, then yellow, then green, then blue.</b> if child yellow falls, <br>
+                    you know to try child green next. if you are searching a maze, you can try choices in the order left, straight, right (<b>or perhaps north, east, south,west).</b></p>
+
+                    <p>it isn't always easy to find a simple way to order the children of a node. <b>In the chess game example,</b>you might number your <br>
+                     pieces (or perhaps the squares of the board) and try them in numerical order, but in addition each piece may also have several <br>
+                      moves, and these must also be ordered.</p>
+                      <br>
+                      <br>
+                      <h3>Example: tree search </h3>
+                      <p> For starts </p>
+              </body>
+
+            </html>
